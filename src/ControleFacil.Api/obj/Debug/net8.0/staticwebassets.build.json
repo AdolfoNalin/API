@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "UhEH5pFEB4dpQzWXGARv9AMxdt+pV5K0h9m1gcjAvmw=",
+  "Source": "ControleFacil.Api",
+  "BasePath": "_content/ControleFacil.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
