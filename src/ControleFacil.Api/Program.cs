@@ -1,4 +1,7 @@
 using System.Text;
+using AutoMapper;
+using ControleFacil.Api.AutoMapper;
+using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Repository.Interface;
 using ControleFacil.Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,9 +26,17 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
 { 
     string? connectionString = builder.Configuration.GetConnectionString("PADRAO");
     builder.Services.AddDbContext<ApplicationContex>(options => options.UseNpgsql(connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
+
+    var config = new MapperConfiguration(cfg => {
+        cfg.AddProfile<UsuaioProfile>();
+    });
+
+    IMapper mapper = config.CreateMapper();
+
     builder.Services
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment)
+    .AddSingleton(mapper)
     .AddScoped<IUsuarioRepository, IUsuarioRepository>();
 }
 
