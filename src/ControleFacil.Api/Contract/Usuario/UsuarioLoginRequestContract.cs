@@ -7,7 +7,7 @@ namespace ControleFacil.Api.Contract.Usuario
 {
     public class UsuarioLoginRequestContract
     {
-        public string Email{ get; set; }
-        public string Password { get; set; }
-    }
+        public string Email{ get; set; } = String.Empty;
+        public string Password { get; set; } = String.Empty;
+    } 
 }
