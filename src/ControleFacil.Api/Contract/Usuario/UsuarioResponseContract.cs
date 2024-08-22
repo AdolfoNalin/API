@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ControleFacil.Api.Contract.Usuario
 {
-    public class UsuarioResponseContract : UsuarioLoginRequestContract
+    public class UsuarioResponseContract : UsuarioRequestContract
     {
         public long Id { get; set; }
         public DateTime DataCadastro { get; set; }
