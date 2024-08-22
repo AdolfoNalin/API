@@ -11,5 +11,6 @@ namespace ControleFacil.Api.Damain.Services.Interface
     public interface IUsuarioService : IService<UsuarioRequestContract, UsuarioResponseContract, long>
     {
         Task<UsuarioRequestContract> Autenticar(UsuarioLoginResponseContract usuario);
+        Task<UsuarioResponseContract> Obter(string email);
     }
 }
