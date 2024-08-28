@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
+using System.Security.Authentication;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,6 +13,7 @@ using ControleFacil.Api.Contract.Usuario;
 using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Repository.Interface;
 using ControleFacil.Api.Damain.Services.Interface;
+using ControleFacil.Api.Domain.Services.Class;
 using FluentValidation.Validators;
 using Humanizer.Bytes;
 using Microsoft.VisualBasic;
@@ -21,17 +24,33 @@ namespace ControleFacil.Api.Damain.Services.Class
     {
         private readonly IUsuarioRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly TokenService _tokenService;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
+        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper, TokenService tokenService)
         {
             _userRepository = usuarioRepository;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
-        public Task<UsuarioLoginResponseContract> Autenticar(UsuarioLoginRequestContract usuario)
+        #region Autenticar
+        public async Task<UsuarioLoginResponseContract> Autenticar(UsuarioLoginRequestContract usuarioLogin)
         {
-            throw new NotImplementedException();
+            var usuario = await Obter(usuarioLogin.Email);
+            var hashSenha = GerarHashSenha(usuarioLogin.Password);
+
+            if(usuario is null || usuario.Password != hashSenha)
+            {
+                throw new AuthenticationException("Usuário ou senha inválido!");
+            }
+            
+            return new UsuarioLoginResponseContract{
+                Id = usuario.Id,
+                Email = usuario.Email,
+                Token = _tokenService.Token(_mapper.Map<Usuario>(usuario))
+            };
         }
+        #endregion
 
         #region Inativar
         public async Task Inativar(long id, long idUser)
