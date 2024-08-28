@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Execution;
 using ControleFacil.Api.Contract.Usuario;
 using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Repository.Interface;
@@ -18,29 +19,25 @@ namespace ControleFacil.Api.Damain.Services.Class
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRepository _userRepository;
         private readonly IMapper _mapper;
-        public UsuarioService(IUsuarioRepository ur, IMapper mapper)
+
+        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
         {
-            _usuarioRepository = ur;
+            _userRepository = usuarioRepository;
             _mapper = mapper;
         }
 
-        #region Autenticar
-        public Task<UsuarioRequestContract> Autenticar(UsuarioLoginResponseContract usuario)
+        public Task<UsuarioLoginResponseContract> Autenticar(UsuarioLoginRequestContract usuario)
         {
             throw new NotImplementedException();
         }
-        #endregion
 
         #region Inativar
         public async Task Inativar(long id, long idUser)
         {
-            var usuario =  await _usuarioRepository.Obter(id) ?? throw new ArgumentNullException(@"Usuário não encontrado para a inativação! 
-            Certifiquece o código ou a existencia dele no banco de dados!");
-
-            await _usuarioRepository.Delete(_mapper.Map<Usuario>(usuario));
-
+            var usuario = await _userRepository.Obter(id) ?? throw new ArgumentException("Usuário não encontrado!");
+            await _userRepository.Delete(_mapper.Map<Usuario>(usuario));
         }
         #endregion
 
@@ -48,33 +45,33 @@ namespace ControleFacil.Api.Damain.Services.Class
         public async Task<UsuarioResponseContract> Insert(UsuarioRequestContract entidade, long idUser)
         {
             var usuario = _mapper.Map<Usuario>(entidade);
-            usuario.Password = GerarHashSenha(usuario.Password);
-            await _usuarioRepository.Add(usuario);
-
+            usuario.Password = GerarHashSenha(entidade.Password);
+            usuario.DataCadastro = DateTime.Now;
+            usuario =  await _userRepository.Add(usuario);
             return _mapper.Map<UsuarioResponseContract>(usuario);
         }
         #endregion
 
-        #region Obter IdUser
-        public async Task<IEnumerable<UsuarioResponseContract>> Obter(long idUser)
-        {
-            return await Obter(idUser);
-        }
-        #endregion
-
-        #region  Obter id and IdUser
-        public async Task<UsuarioResponseContract> Obter(long id, long idUser)
-        {
-            var usuario = await _usuarioRepository.Obter(id);
-            return _mapper.Map<UsuarioResponseContract>(usuario);
-        }
-        #endregion 
-        
-        #region Obter email
+        #region  Obter email
         public async Task<UsuarioResponseContract> Obter(string email)
         {
-            var usuario = await _usuarioRepository.Obter(email);
+            var usuario = await _userRepository.Obter(email) ?? throw new ArgumentNullException("Email incorreto!");
+            return _mapper.Map<UsuarioResponseContract>(usuario);
+        }
+        #endregion
 
+        #region Obter
+        public async Task<IEnumerable<UsuarioResponseContract>> Obter()
+        {
+            var usuario = await _userRepository.Obter();
+            return usuario.Select(usuario => _mapper.Map<UsuarioResponseContract>(usuario));
+        }
+        #endregion
+
+        #region Obter Id
+        public async Task<UsuarioResponseContract> Obter(long id, long idUser)
+        {
+            var usuario = await _userRepository.Obter(id);
             return _mapper.Map<UsuarioResponseContract>(usuario);
         }
         #endregion
@@ -82,13 +79,11 @@ namespace ControleFacil.Api.Damain.Services.Class
         #region Update
         public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract entidade, long idUser)
         {
-            _= await _usuarioRepository.Obter(id) ?? throw new ArgumentNullException("Usuário não encontrado para a autualização!");
-
-            var usuario = _mapper.Map<Usuario>(entidade);   
+            _ = _userRepository.Obter(id) ?? throw new ArgumentException("Usuário não encontrado");
+            var usuario = _mapper.Map<Usuario>(entidade);
             usuario.ID = id;
             usuario.Password = GerarHashSenha(entidade.Password);
-            usuario = await _usuarioRepository.Update(usuario);
-
+            usuario = await _userRepository.Update(usuario);
             return _mapper.Map<UsuarioResponseContract>(usuario);
         }
         #endregion
@@ -101,25 +96,10 @@ namespace ControleFacil.Api.Damain.Services.Class
             {
                 byte[] Bsenha = Encoding.UTF8.GetBytes(senha);
                 byte[] byteSenHash = pass.ComputeHash(Bsenha);
-                hashSenha = BitConverter.ToString(byteSenHash).ToLower();
+                hashSenha = BitConverter.ToString(byteSenHash).Replace("-",".").ToLower();
             };
 
             return hashSenha;
-        }
-
-        Task<IEnumerable<UsuarioResponseContract>> IService<UsuarioRequestContract, UsuarioResponseContract, long>.Obter(long idUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<UsuarioResponseContract> IService<UsuarioRequestContract, UsuarioResponseContract, long>.Obter(long id, long idUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<UsuarioResponseContract> IService<UsuarioRequestContract, UsuarioResponseContract, long>.Update(long id, UsuarioRequestContract entidade, long idUser)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }
