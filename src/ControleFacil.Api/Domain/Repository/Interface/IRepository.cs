@@ -12,6 +12,5 @@ namespace ControleFacil.Api.Damain.Repository.Interface
         Task<T> Add(T entidade);
         Task<T> Update (T entidade);
         Task Delete(T entidade);
-
     }
 }
