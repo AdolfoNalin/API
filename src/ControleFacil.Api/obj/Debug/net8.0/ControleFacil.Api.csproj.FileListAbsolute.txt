@@ -57,3 +57,4 @@ D:\Users\Adolfo Nalin\Desktop\ControleFacil\src\ControleFacil.Api\obj\Debug\net8
 D:\Users\Adolfo Nalin\Desktop\ControleFacil\src\ControleFacil.Api\obj\Debug\net8.0\ControleFacil.Api.pdb
 D:\Users\Adolfo Nalin\Desktop\ControleFacil\src\ControleFacil.Api\obj\Debug\net8.0\ControleFacil.Api.genruntimeconfig.cache
 D:\Users\Adolfo Nalin\Desktop\ControleFacil\src\ControleFacil.Api\obj\Debug\net8.0\ref\ControleFacil.Api.dll
+D:\Users\Adolfo Nalin\Desktop\ControleFacil\src\ControleFacil.Api\obj\Debug\net8.0\ControleFacil.Api.sourcelink.json
