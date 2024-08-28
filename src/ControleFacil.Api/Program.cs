@@ -1,13 +1,18 @@
 using System.Text;
 using AutoMapper;
 using ControleFacil.Api.AutoMapper;
-using ControleFacil.Api.Damain.Models;
+using ControleFacil.Api.Contract.Usuario;
+using ControleFacil.Api.Controllers;
+using ControleFacil.Api.Damain.Services;
+using ControleFacil.Api.Damain.Repository.Class;
 using ControleFacil.Api.Damain.Repository.Interface;
 using ControleFacil.Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ControleFacil.Api.Damain.Services.Interface;
+using ControleFacil.Api.Damain.Services.Class;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +42,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment)
     .AddSingleton(mapper)
-    .AddScoped<IUsuarioRepository, IUsuarioRepository>();
+    .AddScoped<IUsuarioRepository, UsuarioRepository>()
+    .AddScoped<IUsuarioService, UsuarioService>();
 }
 
 // Configura o serviços da API.
