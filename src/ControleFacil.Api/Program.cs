@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Damain.Services.Class;
+using ControleFacil.Api.Domain.Services.Class;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,7 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment)
     .AddSingleton(mapper)
+    .AddSingleton<TokenService>()
     .AddScoped<IUsuarioRepository, UsuarioRepository>()
     .AddScoped<IUsuarioService, UsuarioService>();
 }
