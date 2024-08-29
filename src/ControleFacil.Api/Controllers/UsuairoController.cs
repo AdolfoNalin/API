@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using ControleFacil.Api.Contract.Usuario;
 using ControleFacil.Api.Damain.Services.Class;
@@ -23,9 +24,28 @@ namespace ControleFacil.Api.Controllers
             _usuarioService = usuarioService;
         }
 
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Autenticar(UsuarioLoginRequestContract usuarioLogin)
+        {
+            try
+            {
+                return Created("", await _usuarioService.Autenticar(usuarioLogin));
+            }
+            catch (AuthenticationException ex)
+            {
+                return Unauthorized(new {statusCode = 401, message = ex.Message});
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         #region Insert
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Insert(UsuarioRequestContract contrato)
         {
             try
@@ -61,7 +81,7 @@ namespace ControleFacil.Api.Controllers
 
         #region Obter Email
         [HttpGet("{email}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Obter(string email)
         {
             try
@@ -77,7 +97,7 @@ namespace ControleFacil.Api.Controllers
 
         #region Obter id
         [HttpGet("usuario/{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Obter(long id)
         {
             try
@@ -93,7 +113,7 @@ namespace ControleFacil.Api.Controllers
 
         #region Update
         [HttpPut("{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Update(long id,UsuarioRequestContract contrato)
         {
             try
@@ -110,7 +130,7 @@ namespace ControleFacil.Api.Controllers
         #region Delete
         [HttpDelete]
         [Route("{id}")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task <IActionResult> Delete(long id)
         {
             try
