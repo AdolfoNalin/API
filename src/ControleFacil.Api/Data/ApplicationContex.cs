@@ -11,7 +11,7 @@ namespace ControleFacil.Api.Data
     public class ApplicationContex : DbContext
     {
         public DbSet<Usuario> Usuario {get; set;}
-        public DbSet<Usuario> NaturezaLancamento {get; set;}
+        public DbSet<NaturezaLancamento> NaturezaLancamento {get; set;}
 
         public ApplicationContex(DbContextOptions<ApplicationContex> options) : base(options)
         {
