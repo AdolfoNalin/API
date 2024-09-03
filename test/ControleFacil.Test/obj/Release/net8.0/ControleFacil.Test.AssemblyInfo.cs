@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b844bcafc9704d9c6219aeea1191c71d04009741")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
