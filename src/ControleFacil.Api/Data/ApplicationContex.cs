@@ -11,6 +11,7 @@ namespace ControleFacil.Api.Data
     public class ApplicationContex : DbContext
     {
         public DbSet<Usuario> Usuario {get; set;}
+        public DbSet<Usuario> NaturezaLancamento {get; set;}
 
         public ApplicationContex(DbContextOptions<ApplicationContex> options) : base(options)
         {
@@ -20,6 +21,7 @@ namespace ControleFacil.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioMap());
+            modelBuilder.ApplyConfiguration(new NaturezaLancamentoMap());
         }
     }
 }
