@@ -55,7 +55,8 @@ namespace ControleFacil.Api.Damain.Repository.Class
         #region  Obter ID
         public async Task<Usuario> Obter(long id)
         {
-            return _contexto.Usuario.Where(u => u.ID == id).FirstOrDefault() ?? throw new ArgumentNullException("Id não encontrado!");
+            return _contexto.Usuario.Where(u => u.ID == id).FirstOrDefault() 
+            ?? throw new ArgumentNullException("Id não encontrado!");
         }
         #endregion
 
