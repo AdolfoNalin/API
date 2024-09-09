@@ -17,7 +17,7 @@ namespace ControleFacil.Api.Damain.Models
         public string Descricao { get; set; } = String.Empty;
         public string? Obs {get; set;} = String.Empty;
         [Required]
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataInativacao { get; set; }
+        public string DataCadastro { get; set; }
+        public string? DataInativacao { get; set; }
     }
 }
