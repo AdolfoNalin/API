@@ -9,7 +9,7 @@ namespace ControleFacil.Api.Contract.NaturezaLancamento
     {
         public long Id { get; set; }
         public long IdUser { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataInativacao { get; set; }
+        public string DataCadastro { get; set; }
+        public string? DataInativacao { get; set; }
     }
 }
