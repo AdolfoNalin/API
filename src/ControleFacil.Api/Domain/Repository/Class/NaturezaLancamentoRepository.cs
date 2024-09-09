@@ -31,6 +31,7 @@ namespace ControleFacil.Api.Domain.Repository.Class
         public async Task Delete(NaturezaLancamento entidade)
         {
             entidade.DataInativacao = DateTime.Now;
+            await _context.SaveChangesAsync();
         }
         #endregion
 
