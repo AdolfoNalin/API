@@ -13,7 +13,7 @@ namespace ControleFacil.Api.Damain.Services.Interface
     /// <typeparam name="I">Tipo do Id</typeparam>
     public interface IService<RQ, RS, I> where RQ : class
     {
-        Task<IEnumerable<RS>> Obter();
+        Task<IEnumerable<RS>> Obter(I idUser);
         Task<RS> Obter(I id, I idUser);
         Task<RS> Insert(RQ entidade, I idUser);
         Task<RS> Update(I id, RQ entidade, I idUser);
