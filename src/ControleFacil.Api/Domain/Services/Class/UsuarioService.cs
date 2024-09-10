@@ -80,9 +80,9 @@ namespace ControleFacil.Api.Damain.Services.Class
         #endregion
 
         #region Obter
-        public async Task<IEnumerable<UsuarioResponseContract>> Obter()
+        public async Task<IEnumerable<UsuarioResponseContract>> Obter(long idUser)
         {
-            var usuario = await _userRepository.Obter();
+            var usuario = await _userRepository.Obter(idUser);
             return usuario.Select(usuario => _mapper.Map<UsuarioResponseContract>(usuario));
         }
         #endregion
