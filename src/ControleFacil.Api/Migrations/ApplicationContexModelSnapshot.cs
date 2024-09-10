@@ -21,6 +21,40 @@ namespace ControleFacil.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaLancamento", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ID"));
+
+                    b.Property<string>("DataCadastro")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("DataInativacao")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Obs")
+                        .IsRequired()
+                        .HasColumnType("varchar");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("naturezalancamento", (string)null);
+                });
+
             modelBuilder.Entity("ControleFacil.Api.Damain.Models.Usuario", b =>
                 {
                     b.Property<long>("ID")
@@ -48,6 +82,17 @@ namespace ControleFacil.Api.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("usuario", (string)null);
+                });
+
+            modelBuilder.Entity("ControleFacil.Api.Damain.Models.NaturezaLancamento", b =>
+                {
+                    b.HasOne("ControleFacil.Api.Damain.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }
