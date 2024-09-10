@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51894129773ff18698dbc9ff6b5f4b4b46493d2a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2dc57428cb40d2cd979b805dc623fb02d1e48d7a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControleFacil.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
