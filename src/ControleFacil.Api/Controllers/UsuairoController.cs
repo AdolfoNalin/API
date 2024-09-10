@@ -16,7 +16,7 @@ namespace ControleFacil.Api.Controllers
 {
     [ApiController]
     [Route("usuario")]
-    public class UsuairoController : ControllerBase
+    public class UsuairoController : BaseController
     {
         private IUsuarioService _usuarioService;
         public UsuairoController(IUsuarioService usuarioService)
@@ -70,7 +70,8 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                return Ok(await _usuarioService.Obter());
+                long idUser = 0;
+                return Ok(await _usuarioService.Obter(idUser));
             }
             catch (Exception ex)
             {
@@ -102,7 +103,7 @@ namespace ControleFacil.Api.Controllers
         {
             try
             {
-                return Ok(await _usuarioService.Obter(id,0));
+                return Ok(await _usuarioService.Obter(id: 0, idUser: id));
             }
             catch (Exception ex)
             {
