@@ -12,7 +12,7 @@ namespace ControleFacil.Api.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<NaturezaLancamento> builder)
         {
-            builder.ToTable("natureza_lancamento").HasKey(p => p.ID);
+            builder.ToTable("naturezalancamento").HasKey(p => p.ID);
             builder.HasOne(u => u.Usuario).WithMany().HasForeignKey(fk => fk.IdUser);
             builder.Property(p => p.Descricao).HasColumnType("varchar").IsRequired();
             builder.Property(p => p.Obs).HasColumnType("varchar").IsRequired();
