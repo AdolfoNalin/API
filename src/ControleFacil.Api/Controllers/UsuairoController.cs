@@ -24,6 +24,7 @@ namespace ControleFacil.Api.Controllers
             _usuarioService = usuarioService;
         }
 
+        #region Login
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
@@ -42,6 +43,7 @@ namespace ControleFacil.Api.Controllers
                 return Problem(ex.Message);
             }
         }
+        #endregion
 
         #region Insert
         [HttpPost]
