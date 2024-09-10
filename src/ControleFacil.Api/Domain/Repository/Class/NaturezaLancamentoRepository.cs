@@ -30,20 +30,20 @@ namespace ControleFacil.Api.Domain.Repository.Class
         #region Delete
         public async Task Delete(NaturezaLancamento entidade)
         {
-            entidade.DataInativacao = DateTime.Now;
+            entidade.DataInativacao = DateTime.Now.ToShortDateString();
             await _context.SaveChangesAsync();
         }
         #endregion
 
         #region Obter All
-        public async Task<IEnumerable<NaturezaLancamento>> Obter()
+        public async Task<IEnumerable<NaturezaLancamento>> Obter(long idUser)
         {
             return await _context.NaturezaLancamento.OrderBy(u => u.ID).ToListAsync();
         }
         #endregion
 
         #region Obter id
-        public Task<NaturezaLancamento?> Obter(long id)
+        public Task<NaturezaLancamento?> Obter(long id, long idUser)
         {
             return _context.NaturezaLancamento.Where(nl => nl.ID == id).FirstOrDefaultAsync()??
             throw new ArgumentException("Por favor, digite o código correto!");

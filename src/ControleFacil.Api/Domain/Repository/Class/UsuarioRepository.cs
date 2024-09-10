@@ -25,7 +25,7 @@ namespace ControleFacil.Api.Damain.Repository.Class
         {
             await _contexto.Usuario.AddAsync(entidade);
             await _contexto.SaveChangesAsync();
-            return await Obter(entidade.ID) ?? throw new ArgumentNullException("Usuário não cadastrado!");
+            return await Obter(0, entidade.ID) ?? throw new ArgumentNullException("Usuário não cadastrado!");
         }
         #endregion
 
@@ -46,14 +46,14 @@ namespace ControleFacil.Api.Damain.Repository.Class
         #endregion
         
         #region Obter All
-        public async Task<IEnumerable<Usuario>> Obter()
+        public async Task<IEnumerable<Usuario>> Obter(long idUser)
         {
             return await _contexto.Usuario.OrderBy(u => u.ID).ToListAsync();
         }
         #endregion
 
         #region  Obter ID
-        public async Task<Usuario> Obter(long id)
+        public async Task<Usuario> Obter(long id, long idUser)
         {
             return _contexto.Usuario.Where(u => u.ID == id).FirstOrDefault() 
             ?? throw new ArgumentNullException("Id não encontrado!");
