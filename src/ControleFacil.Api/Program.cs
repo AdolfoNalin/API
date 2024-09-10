@@ -17,6 +17,7 @@ using ControleFacil.Api.Domain.Services.Class;
 using ControleFacil.Api.Domain.Repository.Interface;
 using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Domain.Repository.Class;
+using ControleFacil.Api.Contract.NaturezaLancamento;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +51,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton<TokenService>()
     .AddScoped<IUsuarioRepository, UsuarioRepository>()
     .AddScoped<IUsuarioService, UsuarioService>()
-    .AddScoped<INaturezaLancamentoRepository, NaturezaLancamentoRepository>();
+    .AddScoped<INaturezaLancamentoRepository, NaturezaLancamentoRepository>()
+    .AddScoped<IService<NaturezaLancamentoRequestContract, NaturezaLancamentoResponseContract, long>, NaturezaLancamentoService>();
 }
 
 // Configura o serviços da API.
