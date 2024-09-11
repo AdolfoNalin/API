@@ -18,6 +18,7 @@ using ControleFacil.Api.Domain.Repository.Interface;
 using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Domain.Repository.Class;
 using ControleFacil.Api.Contract.NaturezaLancamento;
+using ControleFacil.Api.Contract.Apagar;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +54,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddScoped<IUsuarioService, UsuarioService>()
     .AddScoped<INaturezaLancamentoRepository, NaturezaLancamentoRepository>()
     .AddScoped<IService<NaturezaLancamentoRequestContract, NaturezaLancamentoResponseContract, long>, NaturezaLancamentoService>()
-    .AddScoped<IApagarRepository, ApagarRepository>();
+    .AddScoped<IApagarRepository, ApagarRepository>()
+    .AddScoped<IService<ApagarRequestContract, ApagarResponseContract, long>, ApagarService>();
 }
 
 // Configura o serviços da API.
