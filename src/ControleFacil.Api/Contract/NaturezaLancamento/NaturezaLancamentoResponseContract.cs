@@ -10,6 +10,6 @@ namespace ControleFacil.Api.Contract.NaturezaLancamento
         public long Id { get; set; }
         public long IdUser { get; set; }
         public string DataCadastro { get; set; }
-        public string? DataInativacao { get; set; }
+        public string? DataInativacao { get; set; } = String.Empty;
     }
 }
