@@ -9,7 +9,7 @@ namespace ControleFacil.Api.Contract.Apagar
     {
         public long Id { get; set; }
         public long idUser { get; set; }
-        public string DataCadastro { get; set; }
+        public string DataCadastro { get; set; } = String.Empty;
         public string? DataInativacao { get; set; }
     }
 }
