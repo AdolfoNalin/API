@@ -16,7 +16,7 @@ namespace ControleFacil.Api.Domain.Services.Class
         private readonly IApagarRepository _apagar;
         private readonly IMapper _mapper;
 
-        public ApagarService(ApagarRepository apagar, IMapper mapper)
+        public ApagarService(IApagarRepository apagar, IMapper mapper)
         {
             _apagar = apagar;
             _mapper = mapper;
