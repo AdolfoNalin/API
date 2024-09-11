@@ -36,7 +36,7 @@ namespace ControleFacil.Api.Domain.Services.Class
             nl.DataCadastro = DateTime.Now.ToShortDateString();
             nl.IdUser = idUser;
             nl = await _nl.Add(nl);
-            return _mapper.Map<NaturezaLancamentoResponseContract>(_nl);
+            return _mapper.Map<NaturezaLancamentoResponseContract>(nl);
         }
         #endregion
 
