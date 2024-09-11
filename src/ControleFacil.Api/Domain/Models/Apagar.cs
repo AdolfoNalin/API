@@ -27,9 +27,9 @@ namespace ControleFacil.Api.Damain.Models
         [Required]
         public string DataCadastro { get; set; }
         [Required(ErrorMessage = "Data de vencimento é obrigatório")]
-        public string? DataVencimento { get; set; }
-        public string? DataInativacao { get; set; }
-        public string? DataRefencia { get; set; }
-        public string? DataPagamento { get; set; }
+        public string? DataVencimento { get; set; } = String.Empty;
+        public string? DataInativacao { get; set; } = String.Empty;
+        public string? DataRefencia { get; set; } = String.Empty;
+        public string? DataPagamento { get; set; } = String.Empty;
     }
 }

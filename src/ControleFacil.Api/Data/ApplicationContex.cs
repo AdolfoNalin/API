@@ -25,5 +25,5 @@ namespace ControleFacil.Api.Data
             modelBuilder.ApplyConfiguration(new NaturezaLancamentoMap());
             modelBuilder.ApplyConfiguration(new ApagarMap());
         }
-    }
+    }   
 }

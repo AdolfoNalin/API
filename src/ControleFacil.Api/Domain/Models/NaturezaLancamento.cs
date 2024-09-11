@@ -18,6 +18,6 @@ namespace ControleFacil.Api.Damain.Models
         public string? Obs {get; set;} = String.Empty;
         [Required]
         public string DataCadastro { get; set; }
-        public string? DataInativacao { get; set; }
+        public string? DataInativacao { get; set; } = String.Empty;
     }
 }
