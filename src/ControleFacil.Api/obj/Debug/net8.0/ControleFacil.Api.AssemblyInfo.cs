@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControleFacil.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+458e5094e7ae62da58b8a107626423db7346d5d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b46f3d3f57644b0206510cd910ef19d988a66731")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControleFacil.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControleFacil.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
