@@ -1,9 +1,6 @@
 using System.Text;
 using AutoMapper;
 using ControleFacil.Api.AutoMapper;
-using ControleFacil.Api.Contract.Usuario;
-using ControleFacil.Api.Controllers;
-using ControleFacil.Api.Damain.Services;
 using ControleFacil.Api.Damain.Repository.Class;
 using ControleFacil.Api.Damain.Repository.Interface;
 using ControleFacil.Api.Data;
@@ -15,7 +12,6 @@ using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Damain.Services.Class;
 using ControleFacil.Api.Domain.Services.Class;
 using ControleFacil.Api.Domain.Repository.Interface;
-using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Domain.Repository.Class;
 using ControleFacil.Api.Contract.NaturezaLancamento;
 using ControleFacil.Api.Contract.Apagar;
@@ -73,7 +69,7 @@ static void ConfigurarServices(WebApplicationBuilder builder)
     {
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
-            Description = "JTW Authorization header using the Beaerer scheme (Example: 'Bearer 12345abcdef')",
+            Description = "JTW Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
             Name = "Authorization",
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.ApiKey,
