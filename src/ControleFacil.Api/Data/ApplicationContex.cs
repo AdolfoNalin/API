@@ -13,6 +13,7 @@ namespace ControleFacil.Api.Data
         public DbSet<Usuario> Usuario {get; set;}
         public DbSet<NaturezaLancamento> NaturezaLancamento {get; set;}
         public DbSet<Apagar> Apagar {get; set;}
+        public DbSet<Areceber> Areceber {get; set;}
 
         public ApplicationContex(DbContextOptions<ApplicationContex> options) : base(options)
         {
@@ -24,6 +25,7 @@ namespace ControleFacil.Api.Data
             modelBuilder.ApplyConfiguration(new UsuarioMap());
             modelBuilder.ApplyConfiguration(new NaturezaLancamentoMap());
             modelBuilder.ApplyConfiguration(new ApagarMap());
+            modelBuilder.ApplyConfiguration(new AreceberMap());
         }
     }   
 }
