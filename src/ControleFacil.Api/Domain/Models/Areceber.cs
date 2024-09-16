@@ -8,10 +8,10 @@ using ControleFacil.Api.Domain.Models;
 
 namespace ControleFacil.Api.Damain.Models
 {
-    public class Apagar : Titulos
+    public class Areceber : Titulos
     {
-        [Required(ErrorMessage = "O campo de ValorApagar é obrigatório")]
-        public float ValorPago { get; set; }
-        public string? DataPagamento { get; set; } = String.Empty;
+        [Required(ErrorMessage = "O campo de ValorAreceber é obrigatório")]
+        public float ValorRecebido { get; set; }
+        public string? DataRecebimento { get; set; } = String.Empty;
     }
 }
