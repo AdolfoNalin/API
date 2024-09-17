@@ -14,6 +14,7 @@ using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Repository.Interface;
 using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Domain.Services.Class;
+using ControleFacil.Api.Exceptions;
 using FluentValidation.Validators;
 using Humanizer.Bytes;
 using Microsoft.VisualBasic;
@@ -55,7 +56,7 @@ namespace ControleFacil.Api.Damain.Services.Class
         #region Inativar
         public async Task Inativar(long id, long idUser)
         {
-            var usuario = await _userRepository.Obter(id) ?? throw new ArgumentException("Usuário não encontrado!");
+            var usuario = await _userRepository.Obter(id) ?? throw new NotFoundExceptions("Usuário não encontrado!");
             await _userRepository.Delete(_mapper.Map<Usuario>(usuario));
         }
         #endregion
@@ -74,7 +75,7 @@ namespace ControleFacil.Api.Damain.Services.Class
         #region  Obter email
         public async Task<UsuarioResponseContract> Obter(string email)
         {
-            var usuario = await _userRepository.Obter(email) ?? throw new ArgumentNullException("Email incorreto!");
+            var usuario = await _userRepository.Obter(email) ?? throw new NotFoundExceptions("Email incorreto!");
             return _mapper.Map<UsuarioResponseContract>(usuario);
         }
         #endregion
@@ -98,7 +99,7 @@ namespace ControleFacil.Api.Damain.Services.Class
         #region Update
         public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract entidade, long idUser)
         {
-            _ = _userRepository.Obter(id) ?? throw new ArgumentException("Usuário não encontrado");
+            _ = _userRepository.Obter(id) ?? throw new NotFoundExceptions("Usuário não encontrado");
             var usuario = _mapper.Map<Usuario>(entidade);
             usuario.ID = id;
             usuario.Password = GerarHashSenha(entidade.Password);

@@ -7,6 +7,7 @@ using ControleFacil.Api.Contract.NaturezaLancamento;
 using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Domain.Repository.Interface;
+using ControleFacil.Api.Exceptions;
 
 namespace ControleFacil.Api.Domain.Services.Class
 {
@@ -76,7 +77,7 @@ namespace ControleFacil.Api.Domain.Services.Class
 
             if(naturezaLancamento is null || naturezaLancamento.IdUser != idUser)
             {
-                throw new Exception("Não foi encontrada nenhuma natureza lançamento pelo id");
+                throw new NotFoundExceptions("Não foi encontrada nenhuma natureza lançamento pelo id");
             }
 
             return naturezaLancamento;

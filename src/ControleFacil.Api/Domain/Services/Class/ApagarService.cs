@@ -8,6 +8,8 @@ using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Domain.Repository.Class;
 using ControleFacil.Api.Domain.Repository.Interface;
+using ControleFacil.Api.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ControleFacil.Api.Domain.Services.Class
 {
@@ -81,7 +83,7 @@ namespace ControleFacil.Api.Domain.Services.Class
 
             if(Apagar is null || Apagar.IdUser != idUser)
             {
-                throw new Exception("Não foi encontrada nenhuma apagar pelo id");
+                throw new NotFoundExceptions("Não foi encontrada nenhuma apagar pelo id");
             }
 
             return Apagar;

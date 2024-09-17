@@ -8,6 +8,9 @@ using ControleFacil.Api.Damain.Models;
 using ControleFacil.Api.Damain.Services.Interface;
 using ControleFacil.Api.Domain.Repository.Class;
 using ControleFacil.Api.Domain.Repository.Interface;
+using ControleFacil.Api.Exceptions;
+using ControleFacil.Api.Migrations;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ControleFacil.Api.Domain.Services.Class
 {
@@ -25,7 +28,7 @@ namespace ControleFacil.Api.Domain.Services.Class
         #region  Inativar
         public async Task Inativar(long id, long idUser)
         {
-            var Areceber = await ObterApagaId(id, idUser) ?? throw new Exception("Entidade não Encontrado!");
+            var Areceber = await ObterAreceberId(id, idUser) ?? throw new Exception("Entidade não Encontrado!");
             await _areceber.Delete(Areceber);
         }
         #endregion
@@ -33,6 +36,8 @@ namespace ControleFacil.Api.Domain.Services.Class
         #region Insert
         public async Task<AreceberResponseContract> Insert(AreceberRequestContract entidade, long idUser)
         {
+            Validate(entidade);
+
             var areceber = _mapper.Map<Areceber>(entidade);
             areceber.DataCadastro = DateTime.Now.ToShortDateString();
             areceber.IdUser = idUser;
@@ -62,7 +67,15 @@ namespace ControleFacil.Api.Domain.Services.Class
         #region Update
         public async Task<AreceberResponseContract> Update(long id, AreceberRequestContract entidade, long idUser)
         {
-            var areceber = await _areceber.Obter(id, idUser);
+            var areceber = await ObterAreceberId(id, idUser);
+
+            Validate(entidade);
+
+            if(areceber.ValorOriginal == entidade.ValorRecebido)
+            {
+                entidade.DataRecebimento = DateTime.Now.ToShortDateString();
+            }
+
             var obj = _mapper.Map<Areceber>(entidade);
 
             obj.IdUser = areceber.IdUser;
@@ -74,17 +87,27 @@ namespace ControleFacil.Api.Domain.Services.Class
         }
         #endregion
 
-        #region ObterApagaId
-        private async Task<Areceber> ObterApagaId(long id, long idUser)
+        #region ObterAreceberId
+        private async Task<Areceber> ObterAreceberId(long id, long idUser)
         {
             var Areceber = await _areceber.Obter(id,idUser);
 
             if(Areceber is null || Areceber.IdUser != idUser)
             {
-                throw new Exception("Não foi encontrada nenhuma Areceber pelo id");
+                throw new NotFoundExceptions("Não foi encontrada nenhuma Areceber pelo id");
             }
 
             return Areceber;
+        }
+        #endregion
+
+        #region Validate 
+        private void Validate(AreceberRequestContract entidade)
+        {
+            if(entidade.ValorOriginal < 0 || entidade.ValorRecebido < 0)
+            {
+                throw new NotFoundExceptions("Os campos valoresOriginal e valorRecebido não pode ser negativos!");
+            }
         }
         #endregion
     }
