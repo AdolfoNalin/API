@@ -106,10 +106,6 @@ namespace ControleFacil.Api.Controllers
                 _idUser = GetUserLoginId();
                 return Ok(await _apagar.Obter(idUser: _idUser));
             }
-            catch(NotFoundExceptions ex)
-            {
-                return NotFound(GetNotFoud(ex));
-            }
             catch (Exception ex)
             {
                 return Problem(ex.Message);
@@ -127,6 +123,10 @@ namespace ControleFacil.Api.Controllers
             {
                 _idUser = GetUserLoginId();
                 return Ok(await _apagar.Obter(id: id, idUser: _idUser));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
             }
             catch (System.Exception ex)
             {
