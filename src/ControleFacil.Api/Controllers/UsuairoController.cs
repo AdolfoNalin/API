@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ControleFacil.Api.Contract.Usuario;
 using ControleFacil.Api.Damain.Services.Class;
 using ControleFacil.Api.Damain.Services.Interface;
+using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -36,7 +37,7 @@ namespace ControleFacil.Api.Controllers
             }
             catch (AuthenticationException ex)
             {
-                return Unauthorized(new {statusCode = 401, message = ex.Message});
+                return Unauthorized(Unauthorized(ex));
             }
             catch (Exception ex)
             {
@@ -53,6 +54,14 @@ namespace ControleFacil.Api.Controllers
             try
             {
                 return Created("",await _usuarioService.Insert(contrato, 0));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
             }
             catch(ArgumentNullException)
             {
@@ -91,6 +100,10 @@ namespace ControleFacil.Api.Controllers
             {
                 return Ok(await _usuarioService.Obter(email));
             }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
             catch (Exception ex)
             {
                 return Problem(ex.Message);
@@ -107,6 +120,10 @@ namespace ControleFacil.Api.Controllers
             {
                 return Ok(await _usuarioService.Obter(id: 0, idUser: id));
             }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
             catch (Exception ex)
             {
                 return Problem(ex.Message);
@@ -122,6 +139,14 @@ namespace ControleFacil.Api.Controllers
             try
             {
                 return Ok(await _usuarioService.Update(id,contrato, 0));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
             }
             catch (Exception ex)
             {
@@ -140,6 +165,10 @@ namespace ControleFacil.Api.Controllers
             {
                 await _usuarioService.Inativar(id, 0);
                 return NoContent();
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
             }
             catch (System.Exception ex)
             {

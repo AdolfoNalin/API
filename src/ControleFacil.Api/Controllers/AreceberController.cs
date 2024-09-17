@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ControleFacil.Api.Contract.Areceber;
 using ControleFacil.Api.Damain.Services.Interface;
+using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,10 @@ namespace ControleFacil.Api.Controllers
                 _idUser = GetUserLoginId();
                 return Created("", await _areceber.Insert(entidade: entidade, idUser: _idUser));
             }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
+            }
             catch(Exception ex)
             {
                 return Problem(ex.Message);
@@ -50,6 +55,14 @@ namespace ControleFacil.Api.Controllers
             {
                 _idUser = GetUserLoginId();
                 return Ok(await _areceber.Update(id:id,entidade: contract, idUser: _idUser));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
             }
             catch (Exception ex)
             {
@@ -69,6 +82,10 @@ namespace ControleFacil.Api.Controllers
                 _idUser = GetUserLoginId();
                 await _areceber.Inativar(id: id, idUser: _idUser);
                 return NoContent();
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
             }
             catch (System.Exception ex)
             {
@@ -104,6 +121,10 @@ namespace ControleFacil.Api.Controllers
             {
                 _idUser = GetUserLoginId();
                 return Ok(await _areceber.Obter(id: id, idUser: _idUser));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
             }
             catch (System.Exception ex)
             {

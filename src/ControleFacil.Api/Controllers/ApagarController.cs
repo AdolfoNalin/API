@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using ControleFacil.Api.Contract;
 using ControleFacil.Api.Contract.Apagar;
 using ControleFacil.Api.Damain.Services.Interface;
+using ControleFacil.Api.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ControleFacil.Api.Controllers
 {
@@ -33,6 +36,10 @@ namespace ControleFacil.Api.Controllers
                 _idUser = GetUserLoginId();
                 return Created("", await _apagar.Insert(entidade: entidade, idUser: _idUser));
             }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
+            }
             catch(Exception ex)
             {
                 return Problem(ex.Message);
@@ -50,6 +57,14 @@ namespace ControleFacil.Api.Controllers
             {
                 _idUser = GetUserLoginId();
                 return Ok(await _apagar.Update(id:id,entidade: contract, idUser: _idUser));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
+            catch(BadRequestExceptions br)
+            {
+                return BadRequest(GetBadRequest(br));
             }
             catch (Exception ex)
             {
@@ -70,6 +85,10 @@ namespace ControleFacil.Api.Controllers
                 await _apagar.Inativar(id: id, idUser: _idUser);
                 return NoContent();
             }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
+            }
             catch (System.Exception ex)
             {
                 return Problem(ex.Message);
@@ -86,6 +105,10 @@ namespace ControleFacil.Api.Controllers
             {
                 _idUser = GetUserLoginId();
                 return Ok(await _apagar.Obter(idUser: _idUser));
+            }
+            catch(NotFoundExceptions ex)
+            {
+                return NotFound(GetNotFoud(ex));
             }
             catch (Exception ex)
             {
