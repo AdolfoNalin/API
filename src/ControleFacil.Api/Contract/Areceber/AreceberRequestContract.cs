@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ControleFacil.Api.Contract.Titulos;
 
-namespace ControleFacil.Api.Contract.Apagar
+namespace ControleFacil.Api.Contract.Areceber
 {
     public class AreceberRequestContract : TitulosRequestContract
     {
